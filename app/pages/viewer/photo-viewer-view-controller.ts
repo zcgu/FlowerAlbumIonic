@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {App, NavOptions, ViewController} from 'ionic-angular';
+import {App, NavOptions, ViewController, NavController} from 'ionic-angular';
 import {PhotoViewer} from './photo-viewer';
 
 export class PhotoViewerViewController extends ViewController {
@@ -23,7 +23,9 @@ export class PhotoViewerViewController extends ViewController {
   }
 
   present(opts: NavOptions = {}){
-    this.app.present(this, opts);
+    // console.log(this._nav);
+    // TODO: 
+    this.app.getRootNav().present(this, opts);
   }
 }
 
