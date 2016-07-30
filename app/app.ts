@@ -3,7 +3,7 @@ import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {APP_PROVIDERS} from './app-factory';
-
+import {GalleryPage} from './pages/gallery/gallery'
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'

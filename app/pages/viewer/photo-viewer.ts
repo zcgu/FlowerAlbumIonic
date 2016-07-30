@@ -5,7 +5,6 @@ import {PhotoViewerViewController} from './photo-viewer-view-controller';
 import {getModalDimensions} from './photo-viewer-transition';
 
 import {ImageEntity} from '../../utils/image-entity';
-import {UnsplashItUtil} from '../../utils/unsplash-it-util';
 import {ViewPortUtil} from '../../utils/viewport-util';
 
 import {GestureDirection} from '../../utils/gestures/gesture-direction';
