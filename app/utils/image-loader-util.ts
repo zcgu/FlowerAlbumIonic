@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
 import {File, ImagePicker} from 'ionic-native'
 import {ImageEntity} from './image-entity';
-declare var cordova: any
 
 @Injectable()
 export class ImageLoader {
   constructor() {
   }
 
-  getListOfImages(thumbnailSize: number): Promise<ImageEntity[]> {
+  getListOfImages(path: string): Promise<ImageEntity[]> {
 
-    return File.listDir(cordova.file.dataDirectory, '').then(files => {
+    return File.listDir(path, '').then(files => {
 
       let imageEntities: ImageEntity[] = [];
 
@@ -20,7 +19,8 @@ export class ImageLoader {
             element.nativeURL,
             element.nativeURL,
             element.nativeURL,
-            true);
+            true,
+            "");
 
           imageEntities.push(imageEntity);
         } else {
@@ -28,7 +28,8 @@ export class ImageLoader {
             FOLDER_IMAGE_PATH,
             FOLDER_IMAGE_PATH,
             FOLDER_IMAGE_PATH,
-            false);
+            false,
+            element.nativeURL);
           imageEntities.push(imageEntity);
         }
       });

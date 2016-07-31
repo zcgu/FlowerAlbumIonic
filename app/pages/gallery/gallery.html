@@ -4,7 +4,13 @@
         <ion-buttons end>
             <button (click)="loadGallery()">
                   <ion-icon name="refresh"></ion-icon>
-              </button>
+            </button>
+            <button (click)="copyImg()">
+                <ion-icon name="add"></ion-icon>
+            </button>
+            <button (click)="createDir()">
+                <ion-icon name="folder"></ion-icon>
+            </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -13,18 +19,11 @@
 <ion-content fullscreen="true">
 
     <div [virtualScroll]="images">
-        <div *virtualItem="let imageEntity" 
-            class="image-container" 
-            [style.width]="imageSize + 'px'" 
-            [style.height]="2*imageSize + 'px'"
+        <div *virtualItem="let imageEntity" class="image-container" [style.width]="imageSize + 'px'" [style.height]="2*imageSize + 'px'"
             (click)="imageClicked(imageEntity, $event)">
 
-            <ion-img [src]="imageEntity.mediumSizeUrl" 
-                class="image" 
-                [width]="imageSize + 'px'" 
-                [height]="imageSize + 'px'" 
-                tappable></ion-img>
-                
+            <ion-img [src]="imageEntity.mediumSizeUrl" class="image" [width]="imageSize + 'px'" [height]="imageSize + 'px'" tappable></ion-img>
+
             <p class="p.center">
                 Photo
             </p>
