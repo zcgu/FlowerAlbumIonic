@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, Storage, SqlStorage, Loading, Alert} from 'ionic-angular';
+import {NavController, Storage, SqlStorage, Loading, Alert, Modal} from 'ionic-angular';
 import {File, ImagePicker} from 'ionic-native'
 declare var cordova: any
+import {ZoomviewSimple} from '../zoomview/zoomview-simple';
+import {ImageEntity} from '../../utils/image-entity';
 
 @Component({
   templateUrl: 'build/pages/about/about.html'
@@ -123,6 +125,13 @@ export class AboutPage {
     }, (err) => {
       console.log(err);
     });
+
+  }
+
+  img() {
+    let modal = Modal.create(ZoomviewSimple, { url: 'img/1.jpg' });
+    this.nav.present(modal);
+
 
   }
 }
