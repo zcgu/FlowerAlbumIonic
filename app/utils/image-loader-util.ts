@@ -17,10 +17,18 @@ export class ImageLoader {
       files.forEach(element => {
         if (element.isFile) {
           let imageEntity = new ImageEntity(element.name,
-          element.nativeURL,
-          element.nativeURL,
-          element.nativeURL);
+            element.nativeURL,
+            element.nativeURL,
+            element.nativeURL,
+            true);
 
+          imageEntities.push(imageEntity);
+        } else {
+          let imageEntity = new ImageEntity("1",
+            FOLDER_IMAGE_PATH,
+            FOLDER_IMAGE_PATH,
+            FOLDER_IMAGE_PATH,
+            false);
           imageEntities.push(imageEntity);
         }
       });
@@ -34,3 +42,5 @@ export class ImageLoader {
 
 
 }
+
+const FOLDER_IMAGE_PATH = "img/folder.png";

@@ -1,13 +1,11 @@
 import {Component} from '@angular/core';
-import {NavController, Modal} from 'ionic-angular';
-
+import {NavController, Modal, NavParams} from 'ionic-angular';
 import {PhotoViewerController} from '../viewer/photo-viewer-view-controller';
-// import {PhotoViewer} from '../viewer/photo-viewer';
-// import {TRANSITION_IN_KEY} from '../viewer/photo-viewer-transition';
 import {ViewPortUtil} from '../../utils/viewport-util';
 import {ImageEntity} from '../../utils/image-entity';
 import {ImageLoader} from '../../utils/image-loader-util';
 import {ZoomviewSimple} from '../zoomview/zoomview-simple';
+declare var cordova: any
 
 @Component({
   templateUrl: 'build/pages/gallery/gallery.html'
@@ -17,10 +15,20 @@ export class GalleryPage {
   private images: ImageEntity[] = [];
   private imageSize: number;
   private galleryLoaded: boolean = false;
+  private path: string;
 
   //   constructor(private nav: NavController, private photoViewerController: PhotoViewerController, private unsplashItUtil: UnsplashItUtil, private viewPortUtil: ViewPortUtil) {
   //   }
-  constructor(private nav: NavController, private photoViewerController: PhotoViewerController, private imageLoaderUtil: ImageLoader, private viewPortUtil: ViewPortUtil) {
+  constructor(private nav: NavController,
+    private params: NavParams,
+    private photoViewerController: PhotoViewerController,
+    private imageLoaderUtil: ImageLoader,
+    private viewPortUtil: ViewPortUtil) {
+      if (params.get('path')) {
+        this.path = params.get('path');
+      } else {
+        this.path = cordova.file.dataDirectory;
+      }
   }
 
   ionViewWillEnter() {
@@ -67,7 +75,7 @@ export class GalleryPage {
       images: this.images,
       image: imageEntity
     });
-    this.nav.present(modal, {animate: false});
+    this.nav.present(modal, { animate: false });
 
   }
 }
