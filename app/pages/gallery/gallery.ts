@@ -63,8 +63,11 @@ export class GalleryPage {
     //     viewportWidth: this.viewPortUtil.getWidth()
     //   }
     // });
-    let modal = Modal.create(ZoomviewSimple, {url: imageEntity.fullSizeUrl});
-    this.nav.present(modal);
+    let modal = Modal.create(ZoomviewSimple, {
+      images: this.images,
+      image: imageEntity
+    });
+    this.nav.present(modal, {animate: false});
 
   }
 }

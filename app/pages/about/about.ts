@@ -129,8 +129,18 @@ export class AboutPage {
   }
 
   img() {
-    let modal = Modal.create(ZoomviewSimple, { url: 'img/1.jpg' });
-    this.nav.present(modal);
+    let image1 = new ImageEntity('1', 'img/1.jpg', 'img/1.jpg', 'img/1.jpg');
+    let image2 = new ImageEntity('2', 'img/2.jpg', 'img/2.jpg', 'img/2.jpg');
+
+    let modal = Modal.create(ZoomviewSimple, {
+      images: [image1, image2],
+      image: image2
+    });
+    this.nav.present(modal, { animate: false });
+
+
+    // let modal = Modal.create(ZoomviewSimple, { url: 'img/1.jpg' });
+    // this.nav.present(modal, {animate: false});
 
 
   }

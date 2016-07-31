@@ -1,7 +1,9 @@
-<!--<div class="image-modal transparent">
-    <ion-img [src]="url" class="fullscreen-image"></ion-img>
-</div>-->
-
-<ion-content class="image-modal transparent">
-    <img [src]="url" class="fullscreen-image"/>
+<ion-content class="image-modal transparent" (click)="close()">
+    <ion-slides [options]="mySlideOptions">
+        <ion-slide *ngFor="let image of images">
+            <!--<img [src]="image.fullSizeUrl" class="fullscreen-image" />-->
+            <img [src]="image.fullSizeUrl"/>
+        </ion-slide>
+        <!--<img [src]="url" class="fullscreen-image" />-->
+    </ion-slides>
 </ion-content>
