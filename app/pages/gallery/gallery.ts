@@ -25,15 +25,11 @@ export class GalleryPage {
     private photoViewerController: PhotoViewerController,
     private imageLoaderUtil: ImageLoader,
     private viewPortUtil: ViewPortUtil) {
-    if (!this.path) {
-      if (params.get('path')) {
-        this.path = params.get('path');
-      } else {
-        this.path = cordova.file.dataDirectory;
-      }
+    if (params.get('path')) {
+      this.path = params.get('path');
+    } else {
+      this.path = cordova.file.dataDirectory;
     }
-
-    console.log(this.path);
   }
 
   ionViewWillEnter() {
@@ -44,7 +40,6 @@ export class GalleryPage {
     if (!this.galleryLoaded) {
       this.loadGallery();
     }
-    console.log(this.path);
   }
 
   loadGallery() {
@@ -54,7 +49,6 @@ export class GalleryPage {
     // });
     this.imageLoaderUtil.getListOfImages(this.path).then(imageEntities => {
       this.images = imageEntities;
-      console.log("Load gallery: ", this.images);
     });
 
   }
@@ -68,11 +62,18 @@ export class GalleryPage {
 
   imageClicked(imageEntity: ImageEntity, event: Event) {
     if (imageEntity.isFile) {
+      var displayImages: ImageEntity[] = [];
+
+      for (var i = 0; i < this.images.length; i++) {
+        if (this.images[i].isFile) {
+          displayImages.push(this.images[i]);
+        }
+      }
+
       let modal = Modal.create(ZoomviewSimple, {
-        images: this.images,
+        images: displayImages,
         image: imageEntity
       });
-      console.log(modal);
       this.nav.present(modal, { animate: false });
     } else {
       this.nav.push(GalleryPage, { path: imageEntity.path });
@@ -145,7 +146,7 @@ export class GalleryPage {
 
             File.createDir(this.path, data.name, false).then(
               (success) => {
-                console.log('create dir success');
+                console.log('create dir success: ', data.name);
                 this.loadGallery();
               }, (err) => {
                 console.log(err)

@@ -1,3 +1,7 @@
+<head>
+  <meta charset="UTF-8">
+</head>
+
 <ion-header class="transparent-header">
     <ion-navbar>
         <ion-title>花相册</ion-title>
@@ -24,8 +28,8 @@
 
             <ion-img [src]="imageEntity.mediumSizeUrl" class="image" [width]="imageSize + 'px'" [height]="imageSize + 'px'" tappable></ion-img>
 
-            <p class="p.center">
-                Photo
+            <p class="center-text">
+                {{imageEntity.name}}
             </p>
         </div>
     </div>
