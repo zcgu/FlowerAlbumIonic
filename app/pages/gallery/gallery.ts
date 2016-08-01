@@ -25,18 +25,26 @@ export class GalleryPage {
     private photoViewerController: PhotoViewerController,
     private imageLoaderUtil: ImageLoader,
     private viewPortUtil: ViewPortUtil) {
-    if (params.get('path')) {
-      this.path = params.get('path');
-    } else {
-      this.path = cordova.file.dataDirectory;
+    if (!this.path) {
+      if (params.get('path')) {
+        this.path = params.get('path');
+      } else {
+        this.path = cordova.file.dataDirectory;
+      }
     }
+
+    console.log(this.path);
   }
 
   ionViewWillEnter() {
     this.imageSize = this.setDimensions();
+  }
+
+  ionViewDidEnter() {
     if (!this.galleryLoaded) {
       this.loadGallery();
     }
+    console.log(this.path);
   }
 
   loadGallery() {
@@ -46,6 +54,7 @@ export class GalleryPage {
     // });
     this.imageLoaderUtil.getListOfImages(this.path).then(imageEntities => {
       this.images = imageEntities;
+      console.log("Load gallery: ", this.images);
     });
 
   }
@@ -63,6 +72,7 @@ export class GalleryPage {
         images: this.images,
         image: imageEntity
       });
+      console.log(modal);
       this.nav.present(modal, { animate: false });
     } else {
       this.nav.push(GalleryPage, { path: imageEntity.path });
