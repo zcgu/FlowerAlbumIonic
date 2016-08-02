@@ -22,7 +22,11 @@ export class ImageLoader {
             true,
             "");
 
-          imageEntities.push(imageEntity);
+          // hide file.
+          let index = imageEntity.fullSizeUrl.lastIndexOf('/');
+          if (imageEntity.fullSizeUrl[index + 1] != '.') {
+            imageEntities.push(imageEntity);
+          }
         } else {
           let imageEntity = new ImageEntity("1",
             FOLDER_IMAGE_PATH,
@@ -30,7 +34,11 @@ export class ImageLoader {
             FOLDER_IMAGE_PATH,
             false,
             element.nativeURL);
-          imageEntities.push(imageEntity);
+
+          // hide dir.
+          if (imageEntity.name[0] != '.') {
+            imageEntities.push(imageEntity);
+          }
         }
       });
 

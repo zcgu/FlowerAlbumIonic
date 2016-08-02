@@ -30,6 +30,6 @@ export class ImageEntity {
 // }
 
   decode_utf8(s) {
-    return decodeURIComponent(encodeURI(s));
+    return decodeURIComponent(s);
   }
 }
