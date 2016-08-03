@@ -7,6 +7,46 @@
 </ion-header>
 
 <ion-content>
-  <ion-img [src]="src" class="top-image"></ion-img>
-  <p>afsdasfsfd</p>
+  <ion-card>
+    <ion-card-header>
+      信息编辑
+    </ion-card-header>
+
+
+    <ion-list>
+
+      <button ion-item>
+        中文名
+        <div item-right> {{imageEntity.name}} </div>
+      </button>
+
+      <button ion-item>
+        别名
+      </button>
+
+      <button ion-item>
+        科
+      </button>
+
+      <button ion-item>
+        属
+      </button>
+
+      <button ion-item>
+        拉丁名
+      </button>
+
+      <button ion-item>
+        拍摄
+      </button>
+
+      <button ion-item>
+        地点
+      </button>
+
+    </ion-list>
+
+    <img [src]="imageEntity.mediumSizeUrl" />
+    
+  </ion-card>
 </ion-content>
