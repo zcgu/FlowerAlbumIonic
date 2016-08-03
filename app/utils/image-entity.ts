@@ -4,8 +4,15 @@ export class ImageEntity {
 
   constructor(public id: number,
     public isFile: boolean,
-    public url: string) {
-
+    public url: string,
+    public chinesename: string,
+    public othername: string,
+    public ke: string,
+    public shu: string,
+    public latin: string,
+    public time: string,
+    public place: string
+    ) {
     // name.
     if (!isFile) {
       var path2: string;
@@ -18,7 +25,7 @@ export class ImageEntity {
       this.name = path2.substring(index + 1);
       this.name = this.decode_utf8(this.name);
     } else {
-      this.name = "Photo";
+      this.name = chinesename;
     }
 
     // image.

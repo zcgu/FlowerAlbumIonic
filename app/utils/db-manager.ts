@@ -29,6 +29,10 @@ export class DBManager {
     });
 
   }
+
+  insert(url: string): Promise<any> {
+    return this.db.query('insert into ' + TABLE_NAME + ' values(null, "' + url + '", "照片", "无", "无", "无", "无", "无", "无")');
+  }
 }
 
 const TABLE_NAME = 'images';

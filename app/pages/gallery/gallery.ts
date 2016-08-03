@@ -24,14 +24,13 @@ export class GalleryPage {
     private params: NavParams,
     private photoViewerController: PhotoViewerController,
     private imageLoaderUtil: ImageLoader,
-    private dbManager: DBManager, 
+    private dbManager: DBManager,
     private viewPortUtil: ViewPortUtil) {
     if (params.get('path')) {
       this.path = params.get('path');
     } else {
       this.path = cordova.file.dataDirectory;
     }
-    dbManager.log();
   }
 
   ionViewWillEnter() {
@@ -109,11 +108,15 @@ export class GalleryPage {
 
         // console.log(path, name);
         File.copyFile(path, name, this.path, '').then((result) => {
-          this.copyNum--;
-          if (this.copyNum <= 0) {
-            this.loading.dismiss();
-            this.loadGallery();
-          }
+
+          this.dbManager.insert(result.nativeURL).then((res) => {
+            this.copyNum--;
+            if (this.copyNum <= 0) {
+              this.loading.dismiss();
+              this.loadGallery();
+            }
+          })
+
         }, (err) => {
           this.copyNum--;
           if (this.copyNum <= 0) {
@@ -151,9 +154,12 @@ export class GalleryPage {
           handler: data => {
 
             File.createDir(this.path, data.name, false).then(
-              (success) => {
-                console.log('create dir success: ', data.name);
-                this.loadGallery();
+              (res) => {
+                console.log(res);
+                this.dbManager.insert(res.nativeURL).then((res) => {
+                  this.loadGallery();
+                  console.log('create dir success: ', data.name);
+                })
               }, (err) => {
                 console.log(err)
               }
