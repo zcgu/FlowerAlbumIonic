@@ -15,25 +15,15 @@ export class ImageLoader {
 
       files.forEach(element => {
         if (element.isFile) {
-          let imageEntity = new ImageEntity(element.name,
-            element.nativeURL,
-            element.nativeURL,
-            element.nativeURL,
-            true,
-            "");
+          let imageEntity = new ImageEntity(0, true, element.nativeURL);
 
           // hide file.
-          let index = imageEntity.fullSizeUrl.lastIndexOf('/');
-          if (imageEntity.fullSizeUrl[index + 1] != '.') {
+          let index = imageEntity.url.lastIndexOf('/');
+          if (imageEntity.url[index + 1] != '.') {
             imageEntities.push(imageEntity);
           }
         } else {
-          let imageEntity = new ImageEntity("1",
-            FOLDER_IMAGE_PATH,
-            FOLDER_IMAGE_PATH,
-            FOLDER_IMAGE_PATH,
-            false,
-            element.nativeURL);
+          let imageEntity = new ImageEntity(0, false, element.nativeURL);
 
           // hide dir.
           if (imageEntity.name[0] != '.') {
@@ -46,10 +36,6 @@ export class ImageLoader {
 
     });
 
-
   }
 
-
 }
-
-const FOLDER_IMAGE_PATH = "img/folder.png";

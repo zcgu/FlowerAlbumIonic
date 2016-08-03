@@ -8,6 +8,7 @@ import {ZoomviewSimple} from '../zoomview/zoomview-simple';
 declare var cordova: any
 import {File, ImagePicker} from 'ionic-native'
 import {DetailPage} from '../detail/detail';
+import {DBManager} from '../../utils/db-manager'
 
 @Component({
   templateUrl: 'build/pages/gallery/gallery.html'
@@ -23,12 +24,14 @@ export class GalleryPage {
     private params: NavParams,
     private photoViewerController: PhotoViewerController,
     private imageLoaderUtil: ImageLoader,
+    private dbManager: DBManager, 
     private viewPortUtil: ViewPortUtil) {
     if (params.get('path')) {
       this.path = params.get('path');
     } else {
       this.path = cordova.file.dataDirectory;
     }
+    dbManager.log();
   }
 
   ionViewWillEnter() {
@@ -75,7 +78,7 @@ export class GalleryPage {
       });
       this.nav.present(modal, { animate: false });
     } else {
-      this.nav.push(GalleryPage, { path: imageEntity.path });
+      this.nav.push(GalleryPage, { path: imageEntity.url });
     }
 
   }

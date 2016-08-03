@@ -1,20 +1,18 @@
 export class ImageEntity {
   public name: string;
+  public image: string;
 
-  constructor(public id: string,
-    public thumbnailUrl: string,
-    public mediumSizeUrl: string,
-    public fullSizeUrl: string,
+  constructor(public id: number,
     public isFile: boolean,
-    public path: string) {
+    public url: string) {
 
-    // name
+    // name.
     if (!isFile) {
       var path2: string;
-      if (path.charAt(path.length - 1) == '/') {
-        path2 = path.substring(0, path.length - 1);
+      if (url.charAt(url.length - 1) == '/') {
+        path2 = url.substring(0, url.length - 1);
       } else {
-        path2 = path;
+        path2 = url;
       }
       var index = path2.lastIndexOf('/');
       this.name = path2.substring(index + 1);
@@ -22,12 +20,23 @@ export class ImageEntity {
     } else {
       this.name = "Photo";
     }
+
+    // image.
+    if (isFile) {
+      this.image = url;
+    } else {
+      this.image = FOLDER_IMAGE_PATH;
+    }
   }
-// encode_utf8(s) {
-//   return unencodeURI(encodeURIComponent(s));
-// }
+
+  // encode_utf8(s) {
+  //   return unencodeURI(encodeURIComponent(s));
+  // }
 
   decode_utf8(s) {
     return decodeURIComponent(s);
   }
 }
+
+
+const FOLDER_IMAGE_PATH = "img/folder.png";

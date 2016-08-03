@@ -101,7 +101,7 @@ export class PhotoViewer {
     this.nonScaledImageEle.nativeElement.onload = () => {
       this.scaledImageEle.nativeElement.style.display = 'none';
     };
-    this.nonScaledImageEle.nativeElement.src = this.imageEntity.mediumSizeUrl;
+    this.nonScaledImageEle.nativeElement.src = this.imageEntity.url;
   }
 
   dismissView(removeImageBeforeDismiss) {

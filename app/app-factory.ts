@@ -6,10 +6,14 @@ import {DragGestureRecognizerProvider} from './utils/gestures/drag-gesture-recog
 
 import {PhotoViewerController} from './pages/viewer/photo-viewer-view-controller';
 
+import {DBManager} from './utils/db-manager'
+
 export const APP_PROVIDERS = [
   /* Utils */
   ViewPortUtil,
   ImageLoader,
+  DBManager,
+
   /* Gesture Recognizers */
   DragGestureRecognizerProvider,
 
