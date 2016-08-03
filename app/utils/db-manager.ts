@@ -26,7 +26,7 @@ export class DBManager {
       this.db.query('select * from ' + TABLE_NAME).then((res) => {
         console.log('log: ', res);
       });
-
+ 
   }
 
   insert(url: string): Promise<any> {
