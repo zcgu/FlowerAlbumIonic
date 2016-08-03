@@ -4,17 +4,16 @@ import {File, ImagePicker} from 'ionic-native'
 declare var cordova: any
 import {ZoomviewSimple} from '../zoomview/zoomview-simple';
 import {ImageEntity} from '../../utils/image-entity';
+import {DetailPage} from '../detail/detail';
 
 @Component({
   templateUrl: 'build/pages/about/about.html'
 })
 export class AboutPage {
-  private nav: any;
   private db: any;
   private loading: any;
 
-  constructor(private navCtrl: NavController) {
-    this.nav = navCtrl;
+  constructor(private nav: NavController) {
   }
 
   showDB() {
@@ -137,5 +136,6 @@ export class AboutPage {
     //   image: image2
     // });
     // this.nav.present(modal, { animate: false });
+    this.nav.push(DetailPage);
   }
 }

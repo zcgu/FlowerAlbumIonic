@@ -1,8 +1,4 @@
-<head>
-  <meta charset="UTF-8">
-</head>
-
-<ion-header class="transparent-header">
+<ion-header>
     <ion-navbar>
         <ion-title>花相册</ion-title>
         <ion-buttons end>
@@ -23,14 +19,17 @@
 <ion-content fullscreen="true">
 
     <div [virtualScroll]="images">
-        <div *virtualItem="let imageEntity" class="image-container" [style.width]="imageSize + 'px'" [style.height]="2*imageSize + 'px'"
-            (click)="imageClicked(imageEntity, $event)">
+        <div *virtualItem="let imageEntity" class="image-container" [style.width]="imageSize + 'px'" [style.height]="2*imageSize + 'px'">
 
-            <ion-img [src]="imageEntity.mediumSizeUrl" class="image" [width]="imageSize + 'px'" [height]="imageSize + 'px'" tappable></ion-img>
+            <ion-img [src]="imageEntity.mediumSizeUrl" class="image" (click)="imageClicked(imageEntity, $event)" [width]="imageSize + 'px'"
+                [height]="imageSize + 'px'" tappable></ion-img>
 
-            <p class="center-text">
-                {{imageEntity.name}}
-            </p>
+            <div (click)="nameClicked(imageEntity, $event)">
+                <p class="center-text">
+                    {{imageEntity.name}}
+                </p>
+            </div>
+
         </div>
     </div>
 

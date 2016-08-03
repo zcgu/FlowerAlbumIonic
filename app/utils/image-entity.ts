@@ -22,8 +22,6 @@ export class ImageEntity {
     } else {
       this.name = "Photo";
     }
-    console.log(path);
-
   }
 // encode_utf8(s) {
 //   return unencodeURI(encodeURIComponent(s));

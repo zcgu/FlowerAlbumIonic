@@ -7,6 +7,7 @@ import {ImageLoader} from '../../utils/image-loader-util';
 import {ZoomviewSimple} from '../zoomview/zoomview-simple';
 declare var cordova: any
 import {File, ImagePicker} from 'ionic-native'
+import {DetailPage} from '../detail/detail';
 
 @Component({
   templateUrl: 'build/pages/gallery/gallery.html'
@@ -15,11 +16,9 @@ export class GalleryPage {
 
   private images: ImageEntity[] = [];
   private imageSize: number;
-  private galleryLoaded: boolean = false;
+  public galleryLoaded: boolean = false;
   private path: string;
 
-  //   constructor(private nav: NavController, private photoViewerController: PhotoViewerController, private unsplashItUtil: UnsplashItUtil, private viewPortUtil: ViewPortUtil) {
-  //   }
   constructor(private nav: NavController,
     private params: NavParams,
     private photoViewerController: PhotoViewerController,
@@ -79,6 +78,10 @@ export class GalleryPage {
       this.nav.push(GalleryPage, { path: imageEntity.path });
     }
 
+  }
+
+  nameClicked(imageEntity: ImageEntity, event: Event) {
+    this.nav.push(DetailPage, { image: imageEntity, parent: this });
   }
 
   private loading: any;
