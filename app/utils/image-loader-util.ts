@@ -15,7 +15,7 @@ export class ImageLoader {
 
       files.forEach(element => {
         if (element.isFile) {
-          let imageEntity = new ImageEntity(0, true, element.nativeURL, '1', '1', '1', '1', '1', '1', '1' );
+          let imageEntity = new ImageEntity(7, true, element.nativeURL, '1', '1', '1', '1', '1', '1', '1' );
 
           // hide file.
           let index = imageEntity.url.lastIndexOf('/');
@@ -23,7 +23,7 @@ export class ImageLoader {
             imageEntities.push(imageEntity);
           }
         } else {
-          let imageEntity = new ImageEntity(0, false, element.nativeURL, '1', '1', '1', '1', '1', '1', '1');
+          let imageEntity = new ImageEntity(7, false, element.nativeURL, '1', '1', '1', '1', '1', '1', '1');
 
           // hide dir.
           if (imageEntity.name[0] != '.') {

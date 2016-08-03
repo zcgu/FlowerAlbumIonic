@@ -5,7 +5,7 @@ export class ImageEntity {
   constructor(public id: number,
     public isFile: boolean,
     public url: string,
-    public chinesename: string,
+    private chinesename: string,
     public othername: string,
     public ke: string,
     public shu: string,

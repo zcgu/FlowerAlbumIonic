@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NavController, Storage, SqlStorage, Loading, Alert, Modal} from 'ionic-angular';
+import {ImageEntity} from './image-entity';
 
 @Injectable()
 export class DBManager {
@@ -22,16 +23,29 @@ export class DBManager {
   }
 
   log() {
-    this.db.query('insert into ' + TABLE_NAME + ' values(null, "1", "1", "1", "1", "1", "1", "1", "1")').then((res) => {
       this.db.query('select * from ' + TABLE_NAME).then((res) => {
-        console.log(res);
+        console.log('log: ', res);
       });
-    });
 
   }
 
   insert(url: string): Promise<any> {
     return this.db.query('insert into ' + TABLE_NAME + ' values(null, "' + url + '", "照片", "无", "无", "无", "无", "无", "无")');
+  }
+
+  update(id: number, value: string, col: string): Promise<any> {
+    return this.db.query('update ' + TABLE_NAME + ' set ' + col + ' = ' + value + ' where ' + ID + ' = ' + id);
+  }
+
+  get(url: string, isFile: boolean): ImageEntity {
+    return this.db.query('select * from ' + TABLE_NAME + ' where ' + URL + ' = "' + url + '"').then((res) => {
+    // return this.db.query('select * from ' + TABLE_NAME).then((res) => {
+      console.log('query result: ', res);
+      console.log('query result: ', res[0]);
+      return new ImageEntity(7, isFile, '1', '1', '1', '1', '1', '1', '1', '1' );
+    }, (error) => {
+      console.log('error: ' + error);
+    });
   }
 }
 

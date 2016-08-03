@@ -15,38 +15,44 @@
 
     <ion-list>
 
-      <button ion-item>
+      <button ion-item (click)="update(CHINESE_NAME)">
         中文名
         <div item-right> {{imageEntity.name}} </div>
       </button>
 
-      <button ion-item>
+      <button ion-item (click)="update(OTHER_NAME)">
         别名
+        <div item-right> {{imageEntity.othername}} </div>
       </button>
 
-      <button ion-item>
+      <button ion-item (click)="update(KE)">
         科
+        <div item-right> {{imageEntity.ke}} </div>
       </button>
 
-      <button ion-item>
+      <button ion-item (click)="update(SHU)">
         属
+        <div item-right> {{imageEntity.shu}} </div>
       </button>
 
-      <button ion-item>
+      <button ion-item (click)="update(LATIN_NAME)">
         拉丁名
+        <div item-right> {{imageEntity.latin}} </div>
       </button>
 
-      <button ion-item>
+      <button ion-item (click)="update(TIME)">
         拍摄
+        <div item-right> {{imageEntity.time}} </div>
       </button>
 
-      <button ion-item>
+      <button ion-item (click)="update(PLACE)">
         地点
+        <div item-right> {{imageEntity.place}} </div>
       </button>
 
     </ion-list>
 
     <img [src]="imageEntity.image" />
-    
+
   </ion-card>
 </ion-content>

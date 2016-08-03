@@ -31,6 +31,7 @@ export class GalleryPage {
     } else {
       this.path = cordova.file.dataDirectory;
     }
+    this.dbManager.log();
   }
 
   ionViewWillEnter() {
@@ -115,6 +116,11 @@ export class GalleryPage {
               this.loading.dismiss();
               this.loadGallery();
             }
+            
+            var i = this.dbManager.get(result.nativeURL, true);
+            console.log('get result: ', i);
+            console.log('get result: ', i.id);
+            console.log('get result: ', i.isFile);
           })
 
         }, (err) => {
