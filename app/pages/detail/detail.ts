@@ -3,6 +3,7 @@ import {NavController, Modal, NavParams, Loading, Alert} from 'ionic-angular';
 import {ImageEntity} from '../../utils/image-entity';
 import {GalleryPage} from '../gallery/gallery';
 import {DBManager} from '../../utils/db-manager';
+import {File, ImagePicker} from 'ionic-native'
 
 
 @Component({
@@ -61,6 +62,48 @@ export class DetailPage {
               console.log(err);
             });
 
+          }
+        }
+      ]
+    });
+    this.nav.present(alert);
+  }
+
+  delete() {
+    let alert = Alert.create({
+      title: '确定删除么？',
+      message: '不可恢复',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            if (this.imageEntity.isFile) {
+              var index = this.imageEntity.url.lastIndexOf('/');
+              var path = this.imageEntity.url.substring(0, index + 1);
+              var name = this.imageEntity.url.substring(index + 1)
+              File.removeFile(path, name).then((res) => {
+                this.dbManager.delete(this.imageEntity.id);
+                this.parent.galleryLoaded = false;
+                this.nav.pop();
+              }, (err) => {
+                console.log(err);
+              });
+            } else {
+              File.removeRecursively(this.parent.path, this.imageEntity.name).then((res) => {
+                this.dbManager.delete(this.imageEntity.id);
+                this.parent.galleryLoaded = false;
+                this.nav.pop();
+              }, (err) => {
+                console.log(err);
+              });
+            }
           }
         }
       ]

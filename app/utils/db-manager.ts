@@ -48,6 +48,10 @@ export class DBManager {
       console.log('error: ' + error);
     });
   }
+
+  delete(id: number): Promise<any> {
+    return this.db.query('delete from ' + TABLE_NAME + ' where ' + ID + ' = ' + id);
+  }
 }
 
 const TABLE_NAME = 'images';

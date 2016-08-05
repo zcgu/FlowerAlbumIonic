@@ -18,7 +18,7 @@ export class GalleryPage {
   private images: ImageEntity[] = [];
   private imageSize: number;
   public galleryLoaded: boolean = false;
-  private path: string;
+  public path: string;
 
   constructor(private nav: NavController,
     private params: NavParams,
@@ -38,8 +38,10 @@ export class GalleryPage {
   }
 
   ionViewDidEnter() {
+    console.log('gallery did load, this.galleryLoaded: ', this.galleryLoaded);
     if (!this.galleryLoaded) {
       this.loadGallery();
+      console.log('gallery did load, load gallery size: ', this.images.length);
     }
   }
 
