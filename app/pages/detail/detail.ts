@@ -54,7 +54,9 @@ export class DetailPage {
 
             this.dbManager.update(this.imageEntity.id, data.input, col).then((success) => {
               this.parent.galleryLoaded = false;
-              this.nav.pop();
+              this.dbManager.get(this.imageEntity.fullPath, this.imageEntity.isFile).then((imageEntity) => {
+                this.imageEntity = imageEntity;
+              });
             }, (err) => {
               console.log(err);
             });

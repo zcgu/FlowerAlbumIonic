@@ -35,14 +35,14 @@ export class DBManager {
   }
 
   update(id: number, value: string, col: string): Promise<any> {
-    return this.db.query('update ' + TABLE_NAME + ' set ' + col + ' = ' + value + ' where ' + ID + ' = ' + id);
+    return this.db.query('update ' + TABLE_NAME + ' set ' + col + ' = "' + value + '" where ' + ID + ' = ' + id);
   }
 
   get(url: string, isFile: boolean): Promise<ImageEntity> {
     return this.db.query('select * from ' + TABLE_NAME + ' where ' + URL + ' = "' + url + '"').then((res) => {
       console.log('DB query result: ', res);
       let result = res.res.rows.item(0);
-      return new ImageEntity(result[ID], isFile, cordova.file.dataDirectory + result[URL], result[CHINESE_NAME],
+      return new ImageEntity(result[ID], isFile, cordova.file.dataDirectory + result[URL], result[URL], result[CHINESE_NAME],
         result[OTHER_NAME], result[KE], result[SHU], result[LATIN_NAME], result[TIME], result[PLACE]);
     }, (error) => {
       console.log('error: ' + error);
