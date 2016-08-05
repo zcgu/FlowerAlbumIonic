@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {File, ImagePicker} from 'ionic-native'
 import {ImageEntity} from './image-entity';
+import {DBManager} from './db-manager'
 
 @Injectable()
 export class ImageLoader {
-  constructor() {
+  constructor(private dbManager: DBManager) {
   }
 
   getListOfImages(path: string): Promise<ImageEntity[]> {
@@ -14,22 +15,27 @@ export class ImageLoader {
       let imageEntities: ImageEntity[] = [];
 
       files.forEach(element => {
-        if (element.isFile) {
-          let imageEntity = new ImageEntity(7, true, element.nativeURL, '1', '1', '1', '1', '1', '1', '1' );
+        console.log(element);
 
-          // hide file.
-          let index = imageEntity.url.lastIndexOf('/');
-          if (imageEntity.url[index + 1] != '.') {
-            imageEntities.push(imageEntity);
-          }
-        } else {
-          let imageEntity = new ImageEntity(7, false, element.nativeURL, '1', '1', '1', '1', '1', '1', '1');
+        this.dbManager.get(element.fullPath, element.isFile).then((imageEntity) => {
 
-          // hide dir.
-          if (imageEntity.name[0] != '.') {
-            imageEntities.push(imageEntity);
+          if (element.isFile) {
+            // hide file.
+            let index = imageEntity.url.lastIndexOf('/');
+            if (imageEntity.url[index + 1] != '.') {
+              imageEntities.push(imageEntity);
+            }
+          } else {
+            // hide dir.
+            if (imageEntity.name[0] != '.') {
+              imageEntities.push(imageEntity);
+            }
           }
-        }
+
+        }, (err) => {
+          console.log(err);
+        });
+
       });
 
       return imageEntities;

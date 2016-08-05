@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {NavController, Storage, SqlStorage, Loading, Alert, Modal} from 'ionic-angular';
 import {ImageEntity} from './image-entity';
+declare var cordova: any
 
 @Injectable()
 export class DBManager {
@@ -23,10 +24,10 @@ export class DBManager {
   }
 
   log() {
-      this.db.query('select * from ' + TABLE_NAME).then((res) => {
-        console.log('log: ', res);
-      });
- 
+    this.db.query('select * from ' + TABLE_NAME).then((res) => {
+      console.log('log: ', res);
+    });
+
   }
 
   insert(url: string): Promise<any> {
@@ -37,12 +38,12 @@ export class DBManager {
     return this.db.query('update ' + TABLE_NAME + ' set ' + col + ' = ' + value + ' where ' + ID + ' = ' + id);
   }
 
-  get(url: string, isFile: boolean): ImageEntity {
+  get(url: string, isFile: boolean): Promise<ImageEntity> {
     return this.db.query('select * from ' + TABLE_NAME + ' where ' + URL + ' = "' + url + '"').then((res) => {
-    // return this.db.query('select * from ' + TABLE_NAME).then((res) => {
-      console.log('query result: ', res);
-      console.log('query result: ', res[0]);
-      return new ImageEntity(7, isFile, '1', '1', '1', '1', '1', '1', '1', '1' );
+      console.log('DB query result: ', res);
+      let result = res.res.rows.item(0);
+      return new ImageEntity(result[ID], isFile, cordova.file.dataDirectory + result[URL], result[CHINESE_NAME],
+        result[OTHER_NAME], result[KE], result[SHU], result[LATIN_NAME], result[TIME], result[PLACE]);
     }, (error) => {
       console.log('error: ' + error);
     });

@@ -31,7 +31,6 @@ export class GalleryPage {
     } else {
       this.path = cordova.file.dataDirectory;
     }
-    this.dbManager.log();
   }
 
   ionViewWillEnter() {
@@ -110,17 +109,12 @@ export class GalleryPage {
         // console.log(path, name);
         File.copyFile(path, name, this.path, '').then((result) => {
 
-          this.dbManager.insert(result.nativeURL).then((res) => {
+          this.dbManager.insert(result.fullPath).then((res) => {
             this.copyNum--;
             if (this.copyNum <= 0) {
               this.loading.dismiss();
               this.loadGallery();
             }
-            
-            var i = this.dbManager.get(result.nativeURL, true);
-            console.log('get result: ', i);
-            console.log('get result: ', i.id);
-            console.log('get result: ', i.isFile);
           })
 
         }, (err) => {
@@ -161,8 +155,7 @@ export class GalleryPage {
 
             File.createDir(this.path, data.name, false).then(
               (res) => {
-                console.log(res);
-                this.dbManager.insert(res.nativeURL).then((res) => {
+                this.dbManager.insert(res.fullPath).then((res) => {
                   this.loadGallery();
                   console.log('create dir success: ', data.name);
                 })
@@ -179,6 +172,5 @@ export class GalleryPage {
   }
 }
 
-const NUM_IMAGES: number = 500;
 const MIN_NUM_COLUMNS: number = 3;
 const MARGIN: number = 10;
