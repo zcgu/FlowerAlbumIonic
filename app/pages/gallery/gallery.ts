@@ -15,7 +15,7 @@ import {DBManager} from '../../utils/db-manager'
 })
 export class GalleryPage {
 
-  private images: ImageEntity[] = [];
+  public images: ImageEntity[] = [];
   private imageSize: number;
   public galleryLoaded: boolean = false;
   public path: string;
@@ -41,7 +41,6 @@ export class GalleryPage {
     console.log('gallery did load, this.galleryLoaded: ', this.galleryLoaded);
     if (!this.galleryLoaded) {
       this.loadGallery();
-      console.log('gallery did load, load gallery size: ', this.images.length);
     }
   }
 

@@ -32,6 +32,8 @@ export class ImageLoader {
             }
           }
 
+          console.log('getListOfImages for each: ', imageEntities);
+
         }, (err) => {
           console.log(err);
         });
