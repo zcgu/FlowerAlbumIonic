@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, Modal, NavParams, Loading, Alert} from 'ionic-angular';
+import {NavController, Modal, NavParams, Loading, AlertController} from 'ionic-angular';
 import {ImageEntity} from '../../utils/image-entity';
 import {GalleryPage} from '../gallery/gallery';
 import {DBManager} from '../../utils/db-manager';
@@ -27,13 +27,14 @@ export class DetailPage {
 
   constructor(private nav: NavController,
     private params: NavParams,
-    private dbManager: DBManager) {
+    private dbManager: DBManager,
+    private alertController: AlertController) {
     this.imageEntity = params.get('image');
     this.parent = params.get('parent');
   }
 
   update(col: string) {
-    let alert = Alert.create({
+    let alert = this.alertController.create({
       title: '更新',
       inputs: [
         {
@@ -66,11 +67,11 @@ export class DetailPage {
         }
       ]
     });
-    this.nav.present(alert);
+    alert.present(alert);
   }
 
   delete() {
-    let alert = Alert.create({
+    let alert = this.alertController.create({
       title: '确定删除么？',
       message: '不可恢复',
       buttons: [
@@ -108,7 +109,7 @@ export class DetailPage {
         }
       ]
     });
-    this.nav.present(alert);
+    alert.present(alert);
   }
 }
 

@@ -25,7 +25,7 @@ export class PhotoViewerViewController extends ViewController {
   present(opts: NavOptions = {}){
     // console.log(this._nav);
     // TODO: 
-    this.app.getActiveNav().present(this, opts);
+    // this.app.getActiveNav().present(this, opts);
   }
 }
 

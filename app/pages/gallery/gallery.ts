@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, Modal, NavParams, Loading, Alert} from 'ionic-angular';
+import {NavController, NavParams, AlertController, LoadingController, ModalController} from 'ionic-angular';
 import {PhotoViewerController} from '../viewer/photo-viewer-view-controller';
 import {ViewPortUtil} from '../../utils/viewport-util';
 import {ImageEntity} from '../../utils/image-entity';
@@ -25,7 +25,10 @@ export class GalleryPage {
     private photoViewerController: PhotoViewerController,
     private imageLoaderUtil: ImageLoader,
     private dbManager: DBManager,
-    private viewPortUtil: ViewPortUtil) {
+    private viewPortUtil: ViewPortUtil,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    public modalCtrl: ModalController) {
     if (params.get('path')) {
       this.path = params.get('path');
     } else {
@@ -72,11 +75,11 @@ export class GalleryPage {
         }
       }
 
-      let modal = Modal.create(ZoomviewSimple, {
+      let modal = this.modalCtrl.create(ZoomviewSimple, {
         images: displayImages,
         image: imageEntity
       });
-      this.nav.present(modal, { animate: false });
+      modal.present({ animate: false });
     } else {
       this.nav.push(GalleryPage, { path: imageEntity.url });
     }
@@ -91,12 +94,12 @@ export class GalleryPage {
   private copyNum: number;
   copyImg() {
     ImagePicker.getPictures({}).then((results) => {
-      this.loading = Loading.create({
+      this.loading = this.loadingController.create({
         content: 'Loading...'
       });
 
       if (results.length > 0) {
-        this.nav.present(this.loading);
+        this.loading.present();
         this.copyNum = results.length;
       }
 
@@ -134,7 +137,7 @@ export class GalleryPage {
 
   createDir() {
 
-    let alert = Alert.create({
+    let alert = this.alertController.create({
       title: 'New Folder',
       inputs: [
         {
@@ -169,7 +172,7 @@ export class GalleryPage {
         }
       ]
     });
-    this.nav.present(alert);
+    alert.present(alert);
   }
 }
 
