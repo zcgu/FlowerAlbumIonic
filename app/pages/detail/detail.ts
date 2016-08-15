@@ -89,6 +89,7 @@ export class DetailPage {
         {
           text: '确定',
           handler: () => {
+            let navTransition = alert.dismiss();
             if (this.imageEntity.isFile) {
               var index = this.imageEntity.url.lastIndexOf('/');
               var path = this.imageEntity.url.substring(0, index + 1);
@@ -97,10 +98,9 @@ export class DetailPage {
                 this.dbManager.delete(this.imageEntity.id);
                 this.parent.galleryLoaded = false;
                 console.log('Delte file complete');
-
-                //TODO: ?
-                setTimeout(() => this.nav.pop(), 500);
-                // this.nav.pop();
+                navTransition.then(() => {
+                  this.nav.pop();
+                });
               }, (err) => {
                 console.log(err);
               });
@@ -108,14 +108,14 @@ export class DetailPage {
               File.removeRecursively(this.parent.path, this.imageEntity.name).then((res) => {
                 this.dbManager.delete(this.imageEntity.id);
                 this.parent.galleryLoaded = false;
-
-                //TODO: ?
-                setTimeout(() => this.nav.pop(), 500);
-                // this.nav.pop();
+                navTransition.then(() => {
+                  this.nav.pop();
+                });
               }, (err) => {
                 console.log(err);
               });
             }
+            return false;
           }
         }
       ]
