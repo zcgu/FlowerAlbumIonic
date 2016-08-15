@@ -79,7 +79,11 @@ export class DetailPage {
           text: '取消',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            console.log('Cancel clicked1');
+            // alert.dismiss().then(() => {
+            //   this.nav.pop();
+            // })
+            // this.nav.pop();
           }
         },
         {
@@ -92,7 +96,11 @@ export class DetailPage {
               File.removeFile(path, name).then((res) => {
                 this.dbManager.delete(this.imageEntity.id);
                 this.parent.galleryLoaded = false;
-                this.nav.pop();
+                console.log('Delte file complete');
+
+                //TODO: ?
+                setTimeout(() => this.nav.pop(), 500);
+                // this.nav.pop();
               }, (err) => {
                 console.log(err);
               });
@@ -100,7 +108,10 @@ export class DetailPage {
               File.removeRecursively(this.parent.path, this.imageEntity.name).then((res) => {
                 this.dbManager.delete(this.imageEntity.id);
                 this.parent.galleryLoaded = false;
-                this.nav.pop();
+
+                //TODO: ?
+                setTimeout(() => this.nav.pop(), 500);
+                // this.nav.pop();
               }, (err) => {
                 console.log(err);
               });
