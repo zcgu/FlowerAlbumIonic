@@ -23,6 +23,7 @@ export class ZoomviewSimple {
   }
 
   close() {
-    this.nav.pop();
+    setTimeout(() => {this.nav.pop()}, 100);
+    // this.nav.pop();
   }
 }

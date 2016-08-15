@@ -2,7 +2,9 @@
     <ion-slides [options]="mySlideOptions">
         <ion-slide *ngFor="let image of images">
             <!--<img [src]="image.fullSizeUrl" class="fullscreen-image" />-->
-            <img [src]="image.image"/>
+            <!--<ion-scroll scrollX="true" scrollY="true" zoom="true" style='width: 100%; height: 100%;'>-->
+            <img [src]="image.image" />
+            <!--</ion-scroll>-->
         </ion-slide>
         <!--<img [src]="url" class="fullscreen-image" />-->
     </ion-slides>

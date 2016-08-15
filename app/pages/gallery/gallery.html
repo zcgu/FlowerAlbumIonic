@@ -26,7 +26,7 @@
             <ion-img [src]="imageEntity.image" class="fullscreen-image" (click)="imageClicked(imageEntity, $event)" [width]="imageSize + 'px'" [height]="imageSize + 'px'"
                 tappable></ion-img>
 
-            <div (click)="nameClicked(imageEntity, $event)">
+            <div (tap)="nameClicked(imageEntity, $event)">
                 <p class="center-text">
                     {{imageEntity.name}} <br /> 别名：{{imageEntity.othername}} <br /> 科：{{imageEntity.ke}} <br /> 属：{{imageEntity.shu}}
                     <br /> 拉丁名：{{imageEntity.latin}} <br /> 时间：{{imageEntity.time}} <br /> 地点：{{imageEntity.place}}
