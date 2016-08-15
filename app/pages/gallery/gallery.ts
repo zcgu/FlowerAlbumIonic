@@ -19,6 +19,7 @@ export class GalleryPage {
   private imageSize: number;
   public galleryLoaded: boolean = false;
   public path: string;
+  private isSearchPage: boolean = false;
 
   constructor(private nav: NavController,
     private params: NavParams,
@@ -34,6 +35,10 @@ export class GalleryPage {
     } else {
       this.path = cordova.file.dataDirectory;
     }
+
+    if (params.get('isSearchPage')) {
+      this.isSearchPage = params.get('isSearchPage');
+    }
   }
 
   ionViewWillEnter() {
@@ -41,20 +46,25 @@ export class GalleryPage {
   }
 
   ionViewDidEnter() {
-    console.log('gallery did load, this.galleryLoaded: ', this.galleryLoaded);
     if (!this.galleryLoaded) {
       this.loadGallery();
     }
   }
 
-  loadGallery() {
+  loadGallery(searchWord?: string) {
     this.galleryLoaded = true;
     // this.unsplashItUtil.getListOfImages(this.imageSize).then(imageEntities => {
     //   this.images = imageEntities;
     // });
-    this.imageLoaderUtil.getListOfImages(this.path).then(imageEntities => {
-      this.images = imageEntities;
-    });
+    if (searchWord) {
+      this.imageLoaderUtil.getListOfImages(this.path, searchWord).then(imageEntities => {
+        this.images = imageEntities;
+      });
+    } else {
+      this.imageLoaderUtil.getListOfImages(this.path).then(imageEntities => {
+        this.images = imageEntities;
+      });
+    }
 
   }
 
@@ -66,6 +76,11 @@ export class GalleryPage {
   }
 
   imageClicked(imageEntity: ImageEntity, event: Event) {
+    if (cordova.plugins.Keyboard.isVisible) {
+      cordova.plugins.Keyboard.close();
+      return;
+    }
+
     if (imageEntity.isFile) {
       var displayImages: ImageEntity[] = [];
 
@@ -87,6 +102,11 @@ export class GalleryPage {
   }
 
   nameClicked(imageEntity: ImageEntity, event: Event) {
+    if (cordova.plugins.Keyboard.isVisible) {
+      cordova.plugins.Keyboard.close();
+      return;
+    }
+    
     this.nav.push(DetailPage, { image: imageEntity, parent: this });
   }
 
@@ -173,6 +193,21 @@ export class GalleryPage {
       ]
     });
     alert.present(alert);
+  }
+
+  gotoSearch() {
+    this.nav.push(GalleryPage, { path: this.path, isSearchPage: true });
+  }
+
+  searchItems(ev: any) {
+    let val = ev.target.value;
+
+    if (!val || val.trim() == '') {
+      this.images = [];
+      return;
+    }
+
+    this.loadGallery(val);
   }
 }
 

@@ -6,10 +6,13 @@
             <!--<button (click)="loadGallery()">
                   <ion-icon name="refresh"></ion-icon>
             </button>-->
-            <button (click)="copyImg()">
+            <button (click)="gotoSearch()" *ngIf="!isSearchPage">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <button (click)="copyImg()" *ngIf="!isSearchPage">
                 <ion-icon name="add"></ion-icon>
             </button>
-            <button (click)="createDir()">
+            <button (click)="createDir()" *ngIf="!isSearchPage">
                 <ion-icon name="folder"></ion-icon>
             </button>
         </ion-buttons>
@@ -19,12 +22,14 @@
 
 <ion-content fullscreen="true">
 
-    <div [virtualScroll]="images">
+    <ion-searchbar *ngIf="isSearchPage" (ionInput)="searchItems($event)"></ion-searchbar>
+
+    <div [virtualScroll]="images" *ngIf="images.length > 0">
         <!--<div *virtualItem="let imageEntity" class="image-container" [style.width]="imageSize + 'px'" [style.height]="2*imageSize + 'px'">-->
         <div *virtualItem="let imageEntity" class="image-container" [style.width]="imageSize + 'px'">
 
-            <ion-img [src]="imageEntity.image" class="fullscreen-image" (click)="imageClicked(imageEntity, $event)" [width]="imageSize + 'px'" [height]="imageSize + 'px'"
-                tappable></ion-img>
+            <ion-img [src]="imageEntity.image" class="fullscreen-image" (click)="imageClicked(imageEntity, $event)" [width]="imageSize + 'px'"
+                [height]="imageSize + 'px'" tappable></ion-img>
 
             <div (tap)="nameClicked(imageEntity, $event)">
                 <p class="center-text">

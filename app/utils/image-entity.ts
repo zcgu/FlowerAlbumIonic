@@ -13,7 +13,7 @@ export class ImageEntity {
     public latin: string,
     public time: string,
     public place: string
-    ) {
+  ) {
     // name.
     if (!isFile) {
       var path2: string;
@@ -43,6 +43,16 @@ export class ImageEntity {
 
   decode_utf8(s) {
     return decodeURIComponent(s);
+  }
+
+  contains(s: string): boolean {
+    return this.name.indexOf(s) !== -1
+      || this.othername.indexOf(s) !== -1
+      || this.ke.indexOf(s) !== -1
+      || this.shu.indexOf(s) !== -1
+      || this.latin.indexOf(s) !== -1
+      || this.time.indexOf(s) !== -1
+      || this.place.indexOf(s) !== -1
   }
 }
 

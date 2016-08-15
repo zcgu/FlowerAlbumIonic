@@ -8,31 +8,45 @@ export class ImageLoader {
   constructor(private dbManager: DBManager) {
   }
 
-  getListOfImages(path: string): Promise<ImageEntity[]> {
+  getListOfImages(path: string, searchWord?: string, list?: ImageEntity[]): Promise<ImageEntity[]> {
 
     return File.listDir(path, '').then(files => {
 
       let imageEntities: ImageEntity[] = [];
+      if (list) {
+        imageEntities = list;
+      }
 
       files.forEach(element => {
-        console.log(element);
-
         this.dbManager.get(element.fullPath, element.isFile).then((imageEntity) => {
 
           if (element.isFile) {
             // hide file.
             let index = imageEntity.url.lastIndexOf('/');
             if (imageEntity.url[index + 1] != '.') {
-              imageEntities.push(imageEntity);
+              if (searchWord) {
+                console.log('searchWord: ', searchWord)
+                if (imageEntity.contains(searchWord)) {
+                  imageEntities.push(imageEntity);
+                }
+              } else {
+                imageEntities.push(imageEntity);
+              }
             }
           } else {
             // hide dir.
             if (imageEntity.name[0] != '.') {
-              imageEntities.push(imageEntity);
+              if (searchWord) {
+                console.log('searchWord: ', searchWord)
+                if (imageEntity.contains(searchWord)) {
+                  imageEntities.push(imageEntity);
+                }
+                this.getListOfImages(imageEntity.url, searchWord, imageEntities);
+              } else {
+                imageEntities.push(imageEntity);
+              }
             }
           }
-
-          console.log('getListOfImages for each: ', imageEntities);
 
         }, (err) => {
           console.log(err);
@@ -45,5 +59,7 @@ export class ImageLoader {
     });
 
   }
+
+
 
 }
